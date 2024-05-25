@@ -1,3 +1,40 @@
+- adds function `MiniTabline.select({tab_index})` which makes tab_index of the tabline as the current buffer. You can try |:h MiniTabline.select()|
+  > First time I have "made"/forked a neovim plugin because I really wanted this feature and would like it if its built into the plugin itself but its fine if you dont merge it, this was mainly for myself anyways.
+
+### Assigning to keymaps
+
+Ex. 1
+
+```lua
+for i = 1, 9 - 1 do
+    vim.api.nvim_set_keymap(
+        'n',
+        '<A-' .. i .. '>',
+        '<CMD>lua MiniTabline.select(' .. i .. ')<CR>',
+        { silent = true }
+    )
+end
+```
+
+Ex. 2
+
+```lua
+local keys = 'asdfjkl;'
+for i = 1, #keys do
+    local c = keys:sub(i, i)
+    vim.keymap.set('n', string.format('<A-%s>', c), function()
+        MiniTabline.select(i)
+    end, { silent = true })
+end
+```
+
+> I have an idea where you press a button (lets say g) and then all the devicons of the bufferline turns into letters you ten can press any letter so the n you can and you get transported to there, buts tats for another time
+> damn this already exists in the two other competent bufferlines [bufferline.nvim](https://github.com/akinsho/bufferline.nvim#picking) and [barbar.nvim](https://github.com/romgrk/barbar.nvim#Jump-to-buffer-mode) (i personally think this one kinda looks cool but im still sticking with mini.tabline cause yeah mini)
+
+# Original README.md
+
+---
+
 <img src="https://github.com/echasnovski/media/blob/main/mini.nvim/logo/logo_tabline.png" style="width: 100%"/>
 
 <!-- badges: start -->

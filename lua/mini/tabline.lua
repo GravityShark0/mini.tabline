@@ -161,6 +161,18 @@ MiniTabline.default_format = function(buf_id, label)
   return string.format(' %s %s ', H.get_icon(label), label)
 end
 
+--- Set current window's buffer as buf_id's buffer from tabline
+---
+---@param buf_id number Incrementally on the shown buffers from tabline.
+---
+---@return boolean|nil Whether operation was successful. If nil, no operation was done.
+MiniTabline.select = function(buf_id)
+	if type(buf_id) ~= "number" or H.tabs[buf_id] == nil then
+		return false
+	end
+	vim.api.nvim_set_current_buf(H.tabs[buf_id].buf_id)
+	return true
+end
 -- Helper data ================================================================
 -- Module default config
 H.default_config = vim.deepcopy(MiniTabline.config)
